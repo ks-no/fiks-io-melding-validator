@@ -1,0 +1,14 @@
+{
+  "definitions": {
+    "testmelding": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$ref": "#/definitions/testmelding",
+  "$schema": "http://json-schema.org/draft-06/schema#"
+}

@@ -1,0 +1,1 @@
+# fiks-io-melding-validator
