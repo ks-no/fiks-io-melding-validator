@@ -8,10 +8,10 @@ import java.util.stream.Collectors
 @Component
 class MeldingTestReader{
 
-    fun getMeldingTester(): List<MeldingTest>  {
+    fun getMeldingTester(testpath: String): List<MeldingTest>  {
         val specfiles = HashMap<String, File>()
         val meldingFiler = LinkedMultiValueMap<String, File>()
-        val file = File("melding-tester")
+        val file = File(testpath)
 
         file.walk().forEach {
             if(it.isFile){

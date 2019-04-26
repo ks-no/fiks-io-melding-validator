@@ -11,22 +11,21 @@ class TestRunner() {
 
     fun run( tests: List<MeldingTest>){
         tests.forEach {meldingtest ->
-            println(meldingtest.navn + ": Tester meldinger mot " + meldingtest.jsonSpec)
+            println(meldingtest.navn + ": Tester meldinger mot jsonspec " + meldingtest.jsonSpec?.name)
             println()
 
             meldingtest.meldinger?.forEach { melding ->
                 println()
-                println(meldingtest.navn + ": Tester melding " +melding)
+                println(meldingtest.navn + ": Tester melding " + melding.name)
 
                 val schema = service.readSchema(FileInputStream(meldingtest.jsonSpec))
-                val errors : MutableList<String> = ArrayList();
-// Problem handler which will print problems found.
+                val errors : MutableList<String> = ArrayList()
+
                 val handler = service.createProblemPrinter({ errors.add(it) })
 
                 service.createParser(FileInputStream(melding), schema, handler).use { parser ->
                     while (parser.hasNext()) {
-                        val event = parser.next()
-                        // Do something useful here
+                        parser.next()
                     }
                 }
                 if(errors.size > 0) {

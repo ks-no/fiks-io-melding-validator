@@ -1,5 +1,6 @@
 package no.ks.fiks.gi.melding
 
+import com.beust.jcommander.JCommander
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
@@ -8,7 +9,7 @@ import org.springframework.boot.autoconfigure.AutoConfigurationPackage
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 
-fun main(args : Array<String>) {
+fun main(vararg args : String) {
     SpringApplication.run(SpringBootConsoleApplication::class.java, *args)
 }
 
@@ -21,9 +22,15 @@ open class SpringBootConsoleApplication : CommandLineRunner {
     private val job: Runner? = null
 
 
-    override fun run(args : Array<String>) {
+    override fun run(vararg args : String) {
         log.info("EXECUTING : command line runner")
-        job?.run()
+        val commandLineArgs = CommandLineArgs()
+        JCommander.newBuilder()
+                .addObject(commandLineArgs)
+                .build().parse(*args)
+        println("Running tests in directory " + commandLineArgs.tests)
+
+        job?.run(commandLineArgs.tests)
     }
 
 }
