@@ -4,6 +4,10 @@
 
     <groupId>no.ks.fiks.io.melding</groupId>
     <artifactId>fiks-io-melding-validator</artifactId>
+
+    <name>Fiks io melding validator</name>
+    <description>Validerer eksempel meldinger mot json spec filer</description>
+
     <parent>
         <artifactId>io-melding-validator-parent</artifactId>
         <groupId>no.ks.fiks.io.melding</groupId>
