@@ -27,6 +27,9 @@
 
     <modules>
         <module>melding-validator</module>
+        <module>fiks-io-mock-service</module>
+        <module>fiks-io-lib</module>
+        <module>fiks-io-system-tester</module>
     </modules>
 
 
