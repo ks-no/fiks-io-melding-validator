@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import java.io.File
 import java.io.FileInputStream
+import java.nio.charset.Charset
 import java.util.*
 import kotlin.collections.ArrayList
 import java.rmi.server.RMISocketFactory.getSocketFactory
@@ -55,16 +56,22 @@ open class SpringBootConsoleApplication : CommandLineRunner {
             val config = ConfigProperties.load(commandLineArgs.configfile)
 
             val fiksIOServer = FiksIOServer(config)
+            val answers = AnswerReader(commandLineArgs.svarMappe)
+            answers.init()
+            fiksIOServer.factory.newSubscription { m, v ->
+                v.ack()
 
-            fiksIOServer.factory.newSubscription({ m, v ->
                 val zip = m.dekryptertZipStream
                 var entry = zip.nextEntry
                 while(entry != null){
-                    println("received ${entry.name} size ${entry.size}")
-                    findAnswer(IOUtils.toByteArray(zip))
+                    val answerForRequest = answers.getAnswerForRequest((IOUtils.toByteArray(zip)).toString(Charset.forName("UTF-8")))
+                    if(answerForRequest != null) {
+                        v.svar(m.meldingType, answerForRequest, "answer.json")
+                        log.info("Sendte svar på ${m.meldingId} til ${m.avsenderKontoId} med $answerForRequest")
+                    }
                     entry = zip.nextEntry
                 }
-            })
+            }
         } catch (e: Exception){
             e.printStackTrace()
             System.exit(1)

@@ -7,6 +7,9 @@ class CommandLineArgs{
     @Parameter(names = arrayOf("-config", "-c"))
     var configfile: String = "config.properties"
 
+    @Parameter(names = arrayOf("-svarmappe"))
+    var svarMappe: String = "."
+
     @Parameter(names = ["--help", "-h"], help = true)
     var help: Boolean = false
 
