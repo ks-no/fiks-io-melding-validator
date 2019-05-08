@@ -3,7 +3,6 @@ package no.ks.fiks.gi.melding
 import com.beust.jcommander.JCommander
 import no.ks.fiks.gi.melding.io.lib.ConfigProperties
 import no.ks.fiks.gi.melding.io.lib.FiksIOServer
-import no.ks.fiks.io.client.model.MottattMelding
 import org.apache.commons.io.IOUtils
 import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner
@@ -61,15 +60,19 @@ open class SpringBootConsoleApplication : CommandLineRunner {
             fiksIOServer.factory.newSubscription { m, v ->
                 v.ack()
 
-                val zip = m.dekryptertZipStream
-                var entry = zip.nextEntry
-                while(entry != null){
-                    val answerForRequest = answers.getAnswerForRequest((IOUtils.toByteArray(zip)).toString(Charset.forName("UTF-8")))
-                    if(answerForRequest != null) {
-                        v.svar(m.meldingType, answerForRequest, "answer.json")
-                        log.info("Sendte svar på ${m.meldingId} til ${m.avsenderKontoId} med $answerForRequest")
+                try {
+                    val zip = m.dekryptertZipStream
+                    var entry = zip.nextEntry
+                    while (entry != null) {
+                        val answerForRequest = answers.getAnswerForRequest((IOUtils.toByteArray(zip)).toString(Charset.forName("UTF-8")))
+                        if (answerForRequest != null) {
+                            v.svar(m.meldingType, answerForRequest, "answer.json")
+                            log.info("Sendte svar på ${m.meldingId} til ${m.avsenderKontoId} med $answerForRequest")
+                        }
+                        entry = zip.nextEntry
                     }
-                    entry = zip.nextEntry
+                }catch(e: Exception) {
+                    log.error("Failed to read message $m", e)
                 }
             }
         } catch (e: Exception){
