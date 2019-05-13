@@ -16,11 +16,11 @@ class MeldingTestReader{
         file.walk().forEach {
             if(it.isFile){
 
-                if(it.path.contains("schema")){
-                    val key = it.parentFile.parentFile.name
+                if(it.name.contains("schema")){
+                    val key = it.parentFile.name
                     specfiles.put(key, it)
                 } else  if(it.path.contains("examples")){
-                    val key = it.parentFile.name
+                    val key = it.parentFile.parentFile.name
                     meldingFiler.add(key, it)
                 }
             }

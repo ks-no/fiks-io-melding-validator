@@ -17,22 +17,28 @@ class TestRunner() {
             meldingtest.meldinger?.forEach { melding ->
                 println()
                 println(meldingtest.navn + ": Tester melding " + melding.name)
-
-                val schema = service.readSchema(FileInputStream(meldingtest.jsonSpec))
                 val errors : MutableList<String> = ArrayList()
+                try{
+                    val schema = service.readSchema(FileInputStream(meldingtest.jsonSpec))
 
-                val handler = service.createProblemPrinter({ errors.add(it) })
 
-                service.createParser(FileInputStream(melding), schema, handler).use { parser ->
-                    while (parser.hasNext()) {
-                        parser.next()
+                    val handler = service.createProblemPrinter({ errors.add(it) })
+
+                    service.createParser(FileInputStream(melding), schema, handler).use { parser ->
+                        while (parser.hasNext()) {
+                            parser.next()
+                        }
                     }
+                } catch (e: Exception) {
+                    println("Failed to read schema ${meldingtest.jsonSpec} feilet med ${e.message}")
+                    return
                 }
+
                 if(errors.size > 0) {
                     println(meldingtest.navn + ": Errors:")
                     errors.forEach { println(meldingtest.navn + ": " + it) }
                 } else
-                    println(meldingtest.navn + ": Ingen error i " + melding)
+                    println(meldingtest.navn + ": Ingen error i " + melding.name)
             }
 
         }
