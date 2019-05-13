@@ -30,6 +30,9 @@ import org.junit.platform.launcher.listeners.TestExecutionSummary
 
 
 
+fun main(vararg args : String) {
+    Runner.main(*args)
+}
 
 class Runner {
 
