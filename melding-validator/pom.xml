@@ -9,8 +9,8 @@
     <description>Validerer eksempel meldinger mot json spec filer</description>
 
     <parent>
-        <artifactId>io-melding-validator-parent</artifactId>
         <groupId>no.ks.fiks.io.melding</groupId>
+        <artifactId>io-melding-validator-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <properties>
