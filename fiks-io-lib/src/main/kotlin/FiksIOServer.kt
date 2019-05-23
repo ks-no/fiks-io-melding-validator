@@ -7,7 +7,7 @@ import no.ks.fiks.io.client.model.KontoId
 
 class FiksIOServer(val config: ConfigProperties) {
 
-    private val amqpkonfigurasjon: AmqpKonfigurasjon = AmqpKonfigurasjon.builder().host("io.fiks.dev.ks.no").port(5671).trustAllSSLCertificates(true).build()
+    private val amqpkonfigurasjon: AmqpKonfigurasjon = AmqpKonfigurasjon.builder().host("io.fiks.test.ks.no").port(5671).build()
     private val virksomhetsertifikatkonfigurasjon: VirksomhetssertifikatKonfigurasjon = VirksomhetssertifikatKonfigurasjon.builder()
             .keyAlias(config.virksomhetssertifikat.keyalias)
             .keyPassword(config.virksomhetssertifikat.keypassword)

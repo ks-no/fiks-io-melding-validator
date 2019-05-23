@@ -15,8 +15,6 @@
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.11</maven.compiler.source>
-        <maven.compiler.target>1.11</maven.compiler.target>
 
         <docker-repository>docker-all.artifactory.fiks.ks.no</docker-repository>
         <kotlin.version>1.3.31</kotlin.version>
