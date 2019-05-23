@@ -5,6 +5,13 @@
     <groupId>no.ks.fiks.io.melding</groupId>
     <artifactId>io-melding-validator-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>no.ks.fiks.pom</groupId>
+        <artifactId>fiks-ekstern-super-pom</artifactId>
+        <version>0.0.8</version>
+    </parent>
+
     <packaging>pom</packaging>
     <description>Parent POM for fiks-io-melding-validator</description>
     <url>https://github.com/ks-no/fiks-io-melding-validator</url>
