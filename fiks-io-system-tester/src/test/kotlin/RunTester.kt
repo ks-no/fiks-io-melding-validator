@@ -5,5 +5,5 @@ import no.ks.fiks.gi.melding.SpringBootConsoleApplication
 import org.springframework.boot.SpringApplication
 
 fun main(args : Array<String>) {
-    Runner.main("-config", "ignored/tester/mock.properties", "-m", "a9679553-06e7-4931-adec-28d2eaf941ba")
+    Runner.main("-config", "ignored/validator/mock.properties", "-m", "32498c2f-8985-4b4a-8227-25e3ce88e7fc")
 }
