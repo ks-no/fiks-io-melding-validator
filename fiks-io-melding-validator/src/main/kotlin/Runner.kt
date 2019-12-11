@@ -5,11 +5,10 @@ import org.springframework.stereotype.Component
 @Component
 class Runner (val reader: MeldingTestReader, val testRunner: TestRunner) {
 
-    public fun run(testpath: String) {
+    fun run(testpath: String):Int {
         val tester = reader.getMeldingTester(testpath)
 
-        testRunner.run(tester)
-
+        return testRunner.run(tester)
     }
 }
 

@@ -9,16 +9,16 @@ import java.io.FileInputStream
 class TestRunner() {
     val service = JsonValidationService.newInstance()
 
-    fun run( tests: List<MeldingTest>){
-        tests.forEach {meldingtest ->
+    fun run( tests: List<MeldingTest>): Int {
+        return tests.map { meldingtest ->
             println(meldingtest.navn + ": Tester meldinger mot jsonspec " + meldingtest.jsonSpec?.name)
             println()
 
-            meldingtest.meldinger?.forEach { melding ->
+            val results: List<Int> = meldingtest.meldinger?.map { melding ->
                 println()
                 println(meldingtest.navn + ": Tester melding " + melding.name)
-                val errors : MutableList<String> = ArrayList()
-                try{
+                val errors: MutableList<String> = ArrayList()
+                try {
                     val schema = service.readSchema(FileInputStream(meldingtest.jsonSpec))
 
 
@@ -31,16 +31,19 @@ class TestRunner() {
                     }
                 } catch (e: Exception) {
                     println("Failed to read schema ${meldingtest.jsonSpec} feilet med ${e.message}")
-                    return
+                    return 2
                 }
 
-                if(errors.size > 0) {
+                if (errors.size > 0) {
                     println(meldingtest.navn + ": Errors:")
                     errors.forEach { println(meldingtest.navn + ": " + it) }
-                } else
+                    1
+                } else {
                     println(meldingtest.navn + ": Ingen error i " + melding.name)
-            }
-
-        }
+                    0
+                }
+            } ?: listOf(0)
+            results.sum()
+        }.sum()
     }
 }

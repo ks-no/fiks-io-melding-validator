@@ -4,8 +4,8 @@ import com.beust.jcommander.JCommander
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
+import org.springframework.boot.ExitCodeGenerator
 import org.springframework.boot.SpringApplication
-import org.springframework.boot.autoconfigure.AutoConfigurationPackage
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 
@@ -30,7 +30,15 @@ open class SpringBootConsoleApplication : CommandLineRunner {
                 .build().parse(*args)
         println("Running tests in directory " + commandLineArgs.tests)
 
-        job?.run(commandLineArgs.tests)
+        job?.run(commandLineArgs.tests)?.takeIf { it > 0 }?.let {
+            throw ExecutionFailedException(it)
+        }
     }
 
 }
+
+class ExecutionFailedException(private val exitCode: Int): RuntimeException("Validering feilet"), ExitCodeGenerator {
+    override fun getExitCode(): Int = exitCode
+}
+
+
