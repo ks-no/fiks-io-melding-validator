@@ -33,7 +33,7 @@
         <changelist>-SNAPSHOT</changelist>
         <revision>1.0.0</revision>
         <kotlin.version>1.3.31</kotlin.version>
-        <jetty.version>9.4.18.v20190429</jetty.version>
+        <jetty.version>9.4.26.v20200117</jetty.version>
     </properties>
 
     <modules>
