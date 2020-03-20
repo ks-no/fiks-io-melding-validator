@@ -21,7 +21,7 @@
         <dependency>
             <groupId>no.ks.fiks</groupId>
             <artifactId>fiks-io-klient-java</artifactId>
-            <version>1.2.2</version>
+            <version>1.2.19</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
